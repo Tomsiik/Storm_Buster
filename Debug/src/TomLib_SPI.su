@@ -1,0 +1,13 @@
+stm32l4xx_ll_spi.h:922:26:LL_SPI_IsActiveFlag_RXNE	16	static
+stm32l4xx_ll_spi.h:933:26:LL_SPI_IsActiveFlag_TXE	16	static
+stm32l4xx_ll_spi.h:984:26:LL_SPI_IsActiveFlag_BSY	16	static
+stm32l4xx_ll_spi.h:1351:25:LL_SPI_ReceiveData8	16	static
+stm32l4xx_ll_spi.h:1374:22:LL_SPI_TransmitData8	16	static
+stm32l4xx_ll_gpio.h:964:22:LL_GPIO_SetOutputPin	16	static
+stm32l4xx_ll_gpio.h:993:22:LL_GPIO_ResetOutputPin	16	static
+TomLib_SPI.c:12:6:TL_SPI_Set_CSN	16	static
+TomLib_SPI.c:17:6:TL_SPI_Reset_CSN	16	static
+TomLib_SPI.c:23:6:TL_SPI_Transmit_Byte	16	static
+TomLib_SPI.c:32:6:TL_SPI_Transmit_Multi	32	static
+TomLib_SPI.c:44:9:TL_SPI_ReceiveTransmit_Byte	16	static
+TomLib_SPI.c:52:6:TL_SPI_ReceiveTransmit_Multi	40	static

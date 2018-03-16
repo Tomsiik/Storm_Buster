@@ -1,0 +1,14 @@
+stm32l4xx_ll_tim.h:1453:22:LL_TIM_EnableCounter	16	static
+stm32l4xx_ll_tim.h:1464:22:LL_TIM_DisableCounter	16	static
+stm32l4xx_ll_tim.h:1692:22:LL_TIM_SetCounter	16	static
+stm32l4xx_ll_tim.h:1734:22:LL_TIM_SetPrescaler	16	static
+stm32l4xx_ll_tim.h:1761:22:LL_TIM_SetAutoReload	16	static
+stm32l4xx_ll_tim.h:4024:22:LL_TIM_ClearFlag_UPDATE	16	static
+stm32l4xx_ll_tim.h:4035:26:LL_TIM_IsActiveFlag_UPDATE	16	static
+stm32l4xx_ll_bus.h:1102:22:LL_APB1_GRP1_EnableClock	24	static
+stm32l4xx_ll_cortex.h:288:22:LL_SYSTICK_EnableIT	4	static
+stm32l4xx_ll_cortex.h:298:22:LL_SYSTICK_DisableIT	4	static
+TomLib_SYS.c:20:6:TL_uDelay	16	static
+TomLib_SYS.c:31:6:TL_mDelay	16	static
+TomLib_SYS.c:39:6:TIM6_Init	8	static
+TomLib_SYS.c:47:6:TL_TIM6_Delay	16	static

@@ -1,0 +1,9 @@
+stm32l4xx_ll_lpuart.h:555:26:LL_LPUART_IsEnabled	16	static
+stm32l4xx_ll_lpuart.h:987:22:LL_LPUART_SetStopBitsLength	16	static
+stm32l4xx_ll_lpuart.h:1291:22:LL_LPUART_SetHWFlowCtrl	16	static
+stm32l4xx_ll_lpuart.h:1408:22:LL_LPUART_SetBaudRate	32	static
+stm32l4xx_ll_bus.h:1380:22:LL_APB1_GRP2_ForceReset	16	static
+stm32l4xx_ll_bus.h:1462:22:LL_APB1_GRP2_ReleaseReset	16	static
+stm32l4xx_ll_lpuart.c:145:13:LL_LPUART_DeInit	24	static
+stm32l4xx_ll_lpuart.c:181:13:LL_LPUART_Init	24	static
+stm32l4xx_ll_lpuart.c:270:6:LL_LPUART_StructInit	16	static

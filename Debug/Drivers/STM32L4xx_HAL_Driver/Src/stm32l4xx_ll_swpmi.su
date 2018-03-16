@@ -1,0 +1,8 @@
+stm32l4xx_ll_swpmi.h:367:26:LL_SWPMI_IsActivated	16	static
+stm32l4xx_ll_swpmi.h:403:22:LL_SWPMI_SetBitRatePrescaler	16	static
+stm32l4xx_ll_swpmi.h:428:22:LL_SWPMI_SetVoltageClass	16	static
+stm32l4xx_ll_bus.h:1380:22:LL_APB1_GRP2_ForceReset	16	static
+stm32l4xx_ll_bus.h:1462:22:LL_APB1_GRP2_ReleaseReset	16	static
+stm32l4xx_ll_swpmi.c:97:13:LL_SWPMI_DeInit	16	static
+stm32l4xx_ll_swpmi.c:119:13:LL_SWPMI_Init	24	static
+stm32l4xx_ll_swpmi.c:159:6:LL_SWPMI_StructInit	16	static

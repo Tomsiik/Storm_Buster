@@ -1,0 +1,4 @@
+stm32l4xx_ll_comp.h:821:26:LL_COMP_IsLocked	16	static
+stm32l4xx_ll_comp.c:171:13:LL_COMP_DeInit	24	static
+stm32l4xx_ll_comp.c:208:13:LL_COMP_Init	24	static
+stm32l4xx_ll_comp.c:287:6:LL_COMP_StructInit	16	static
