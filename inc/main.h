@@ -8,6 +8,9 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+#include "Periph_Init.h"
+#include "TomLib_SYS.h"
+#include "Procedures.h"
 
 
 #ifndef NVIC_PRIORITYGROUP_0

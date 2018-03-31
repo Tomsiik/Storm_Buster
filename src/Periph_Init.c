@@ -1,5 +1,5 @@
 #include "Periph_Init.h"
-
+#include "TomLib_SYS.h"
 
 void SystemClock_Config(void) {
 	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
@@ -31,6 +31,8 @@ void SystemClock_Config(void) {
 	SysTick_Config(SystemCoreClock / 100000);
 	NVIC_SetPriority(SysTick_IRQn,NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
 	LL_SYSTICK_DisableIT();
+	LL_RCC_SetADCClockSource(LL_RCC_ADC_CLKSOURCE_SYSCLK);
+
 
 }
 
@@ -171,6 +173,48 @@ void I2C2_Init(void){
 	I2C_InitStruct.TypeAcknowledge=LL_I2C_NACK;
 	LL_I2C_Init(I2C2,&I2C_InitStruct);
 	LL_I2C_Enable(I2C2);
+
+}
+
+void ADC_Init(){
+	LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOC);
+	LL_GPIO_SetPinMode(GPIOC,LL_GPIO_PIN_0,LL_GPIO_MODE_ANALOG);
+	LL_GPIO_SetPinPull(GPIOC,LL_GPIO_PIN_0,LL_GPIO_PULL_NO);
+
+	LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_ADC);
+	//ADC_COMMON je base adresa registrù která je spoleèná pro všechny prvky ADC pøevodníku
+	//zde se definuje prescaler a clock
+
+	LL_ADC_DisableDeepPowerDown(ADC1);
+	ADC1->CR|=ADC_CR_ADVREGEN ;
+	TL_TIM6_Delay(10);
+	LL_ADC_StartCalibration(ADC1,LL_ADC_SINGLE_ENDED);
+	while(READ_BIT(ADC1->CR,ADC_CR_ADCAL));
+
+
+	ADC1_COMMON->CCR=ADC_CCR_PRESC_0;
+	LL_ADC_SetDataAlignment(ADC1,LL_ADC_DATA_ALIGN_RIGHT);
+	LL_ADC_SetResolution(ADC1,LL_ADC_RESOLUTION_12B);
+	LL_ADC_REG_SetContinuousMode(ADC1,LL_ADC_REG_CONV_SINGLE);
+	LL_ADC_REG_SetTrigSource(ADC1,LL_ADC_REG_TRIG_SW_START);
+	LL_ADC_REG_SetSequencerLength(ADC1,LL_ADC_REG_SEQ_SCAN_ENABLE_2RANKS);
+	LL_ADC_REG_SetDMATransfer(ADC1,LL_ADC_REG_DMA_TRANSFER_NONE);
+
+	//vrefin
+	LL_ADC_SetCommonPathInternalCh(ADC1_COMMON,LL_ADC_PATH_INTERNAL_VREFINT);
+	LL_ADC_REG_SetSequencerRanks(ADC1, LL_ADC_REG_RANK_1, LL_ADC_CHANNEL_0);
+	LL_ADC_SetChannelSamplingTime(ADC1, LL_ADC_CHANNEL_0, LL_ADC_SAMPLINGTIME_247CYCLES_5);
+
+	//set channel pin
+	LL_ADC_SetChannelSingleDiff(ADC1,LL_ADC_CHANNEL_9,LL_ADC_SINGLE_ENDED);
+	LL_ADC_REG_SetSequencerRanks(ADC1,LL_ADC_REG_RANK_2,LL_ADC_CHANNEL_9);
+	LL_ADC_SetChannelSamplingTime(ADC1,LL_ADC_CHANNEL_9,LL_ADC_SAMPLINGTIME_640CYCLES_5);
+
+
+	LL_ADC_ClearFlag_ADRDY(ADC1);
+	LL_ADC_Enable(ADC1);
+	while(LL_ADC_IsActiveFlag_ADRDY(ADC1)==RESET);
+
 
 }
 
