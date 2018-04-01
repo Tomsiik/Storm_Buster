@@ -25,7 +25,7 @@ int main(void) {
 		GPIOC->ODR = 0;
 		TL_mDelay(500);
 
-		ADC_Read_Voltage(voltage1,voltage2);
+		ADC_Read_Voltage(&voltage1,&voltage2);
 
 
 	}
