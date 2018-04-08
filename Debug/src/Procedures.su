@@ -1,0 +1,8 @@
+stm32l4xx_ll_adc.h:6132:22:LL_ADC_REG_StartConversion	16	static
+stm32l4xx_ll_adc.h:6538:26:LL_ADC_IsActiveFlag_ADRDY	16	static
+stm32l4xx_ll_adc.h:6549:26:LL_ADC_IsActiveFlag_EOC	16	static
+stm32l4xx_ll_adc.h:6684:22:LL_ADC_ClearFlag_EOS	16	static
+Procedures.c:14:10:ADC_CALIB_REF_Read	4	static
+Procedures.c:18:10:ADC_read	8	static
+Procedures.c:25:6:ADC_StartConversion	8	static
+Procedures.c:30:6:ADC_Read_VC	56	static

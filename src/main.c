@@ -1,9 +1,9 @@
 
 #include "main.h"
 
-__IO uint32_t calib_val;
+extern uint32_t calib_val;
 
-float voltage1,voltage2;
+float voltage,consumption;
 
 
 int main(void) {
@@ -20,12 +20,17 @@ int main(void) {
 	GPIOC->ODR = 0;
 	TL_mDelay(2000);
 	while (1) {
-		GPIOC->ODR |= ULED2;
-		TL_mDelay(50);
-		GPIOC->ODR = 0;
-		TL_mDelay(500);
+		LL_GPIO_SetOutputPin(GPIOA, _3V3_EN	);
+		LL_GPIO_SetOutputPin(GPIOA, _5V_EN	);
 
-		ADC_Read_Voltage(&voltage1,&voltage2);
+		GPIOC->ODR |= ULED2;
+		//TL_mDelay(50);
+		ADC_Read_VC(&voltage,&consumption);
+
+		GPIOC->ODR = 0;
+		//TL_mDelay(500);
+
+		ADC_Read_VC(&voltage,&consumption);
 
 
 	}

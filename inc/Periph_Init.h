@@ -26,6 +26,7 @@ void SPI2_Init(void);
 void USART1_Init(void);
 void USART2_Init(void);
 void I2C2_Init(void);
+void ADC_Init(void);
 
 
 
@@ -37,8 +38,8 @@ void I2C2_Init(void);
 #define USART2_RX	GPIO_PIN_3
 #define SENS1		GPIO_PIN_4
 #define SENS2		GPIO_PIN_5
-#define _5V_EN		GPIO_PIN_6
-#define _3V3_EN		GPIO_PIN_7
+#define _3V3_EN		GPIO_PIN_6
+#define _5V_EN		GPIO_PIN_7
 #define MCO			GPIO_PIN_8
 #define USART1_TX	GPIO_PIN_9
 #define USART1_RX	GPIO_PIN_10
@@ -65,4 +66,10 @@ void I2C2_Init(void);
 #define U7			GPIO_PIN_10
 #define U6			GPIO_PIN_11
 #define U5			GPIO_PIN_12
+
+//System & Hardware
+#define ShuntR	16
+
+
 #endif /* PERIPH_INIT_H_ */
+
