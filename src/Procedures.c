@@ -6,42 +6,46 @@
  */
 
 #include "Periph_Init.h"
+#include "Procedures.h"
 
+uint32_t calib_val;
 
- uint32_t calib_val;
-
-
-uint32_t ADC_CALIB_REF_Read(){
+uint32_t ADC_CALIB_REF_Read() {
 	return *VREFINT_CAL_ADDR;
 }
 
-uint32_t ADC_read(){
-	GPIOB->ODR|=LL_GPIO_PIN_13;
+uint32_t ADC_Read() {
+	GPIOB->ODR |= LL_GPIO_PIN_13;
 
-	while(LL_ADC_IsActiveFlag_EOC(ADC1)==RESET){}
+	while (LL_ADC_IsActiveFlag_EOC(ADC1) == RESET) {
+	}
 	return READ_REG(ADC1->DR);
 }
 
-void ADC_StartConversion(){
-	while(LL_ADC_IsActiveFlag_ADRDY(ADC1)==RESET);
+void ADC_StartConversion() {
+	while (LL_ADC_IsActiveFlag_ADRDY(ADC1) == RESET)
+		;
 	LL_ADC_REG_StartConversion(ADC1);
 }
 
-void ADC_Read_VC(float *sens2,float *consumption){
+/* Mereni vstupniho napìtí USB, a odbìr z 3V3 vìtve (core voltage)
+ *
+ */
+void ADC_VC_Read(float *sens2, uint8_t *consumption) {
 
-	uint32_t vrefin_data=0;
-	uint32_t rawdata1=0;
-	uint32_t rawdata2=0;
-	float voltage1=0;
-	float voltage2=0;
-	float voltage_diff=0;
+	uint32_t vrefin_data = 0;
+	uint32_t rawdata1 = 0;
+	uint32_t rawdata2 = 0;
+	float voltage1 = 0;
+	float voltage2 = 0;
+	float voltage_diff = 0;
 
-	for (int y = 0; y <= 10; y++) {		//pøeètení analogových vstupù a reference 10 krát
+	for (int y = 0; y <= 10; y++) {	//pøeètení analogových vstupù a reference 10 krát
 
 		ADC_StartConversion();
-		vrefin_data +=ADC_read();
-		rawdata1 +=ADC_read();
-		rawdata2+=ADC_read();
+		vrefin_data += ADC_Read();
+		rawdata1 += ADC_Read();
+		rawdata2 += ADC_Read();
 		LL_ADC_ClearFlag_EOS(ADC1);
 
 	}
@@ -54,12 +58,27 @@ void ADC_Read_VC(float *sens2,float *consumption){
 	voltage2 = (3.0 * calib_val * rawdata2 / ((float) vrefin_data * 4095));
 	voltage2 *= 4;
 
+	*sens2 = voltage2;
 
-	*sens2=voltage2;
-
-	voltage_diff=voltage2-voltage1;		//rozdílové napìtí na vstupech - napìtí na shunt rezistoru
-	*consumption=(float)(voltage_diff/ShuntR); //výpoèet proudu do napájení jádra
+	voltage_diff = voltage2 - voltage1;	//rozdílové napìtí na vstupech - napìtí na shunt rezistoru
+	*consumption = (uint8_t) ((voltage_diff / ShuntR) * 1000); //výpoèet proudu do napájení jádra
 
 }
 
+/*Temperature*/
+void Temperature_Config(uint8_t config) {
+	uint8_t data[2] = { config, TEMP_CONF_REG };
+	TL_I2C_InitConfig(I2C2);
+	TL_I2C_SendData(I2C2, Temp_Addr, data, 2);
+}
+
+void Temperature_Read(uint16_t *temp) {
+	uint8_t data[2];
+	TL_I2C_InitConfig(I2C2);
+	TL_I2C_SendOneByte(I2C2, Temp_Addr, TEMP_TEMP_REG);
+	TL_I2C_ReadData(I2C2, Temp_Addr, data, 2);
+	*temp=(((uint16_t)data[0]<<4) | (data[1]>>4))*0.0625;
+
+
+}
 

@@ -67,8 +67,17 @@ void ADC_Init(void);
 #define U6			GPIO_PIN_11
 #define U5			GPIO_PIN_12
 
-//System & Hardware
-#define ShuntR	16
+/*System & Hardware*/
+#define ShuntR		16
+#define Temp_Addr 	0x90
+#define EEPROM_Addr 0xA0
+
+
+/*Temperature definition*/
+#define TEMP_TEMP_REG 0x00
+#define TEMP_CONF_REG 0x01
+
+
 
 
 #endif /* PERIPH_INIT_H_ */

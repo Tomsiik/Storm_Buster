@@ -43,6 +43,7 @@ stm32l4xx_ll_gpio.h:363:22:LL_GPIO_SetPinOutputType	24	static
 stm32l4xx_ll_gpio.h:434:22:LL_GPIO_SetPinSpeed	40	static
 stm32l4xx_ll_gpio.h:505:22:LL_GPIO_SetPinPull	40	static
 stm32l4xx_ll_gpio.h:577:22:LL_GPIO_SetAFPin_0_7	40	static
+stm32l4xx_ll_gpio.h:654:22:LL_GPIO_SetAFPin_8_15	40	static
 stm32l4xx_ll_spi.h:375:22:LL_SPI_Enable	16	static
 stm32l4xx_ll_spi.h:682:22:LL_SPI_SetRxFIFOThreshold	16	static
 stm32l4xx_ll_i2c.h:407:22:LL_I2C_Enable	16	static
