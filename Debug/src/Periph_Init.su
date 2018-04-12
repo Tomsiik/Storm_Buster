@@ -44,6 +44,7 @@ stm32l4xx_ll_gpio.h:434:22:LL_GPIO_SetPinSpeed	40	static
 stm32l4xx_ll_gpio.h:505:22:LL_GPIO_SetPinPull	40	static
 stm32l4xx_ll_gpio.h:577:22:LL_GPIO_SetAFPin_0_7	40	static
 stm32l4xx_ll_gpio.h:654:22:LL_GPIO_SetAFPin_8_15	40	static
+stm32l4xx_ll_gpio.h:964:22:LL_GPIO_SetOutputPin	16	static
 stm32l4xx_ll_spi.h:375:22:LL_SPI_Enable	16	static
 stm32l4xx_ll_spi.h:682:22:LL_SPI_SetRxFIFOThreshold	16	static
 stm32l4xx_ll_i2c.h:407:22:LL_I2C_Enable	16	static
@@ -52,7 +53,7 @@ stm32l4xx_ll_usart.h:697:22:LL_USART_Enable	16	static
 stm32l4xx_ll_usart.h:1344:22:LL_USART_DisableSCLKOutput	16	static
 Periph_Init.c:4:6:SystemClock_Config	8	static
 Periph_Init.c:40:6:GPIO_Init	8	static
-Periph_Init.c:125:6:SPI2_Init	48	static
-Periph_Init.c:145:6:USART2_Init	40	static
-Periph_Init.c:163:6:I2C2_Init	40	static
-Periph_Init.c:179:6:ADC_Init	8	static
+Periph_Init.c:127:6:SPI2_Init	48	static
+Periph_Init.c:147:6:USART2_Init	40	static
+Periph_Init.c:165:6:I2C2_Init	40	static
+Periph_Init.c:181:6:ADC_Init	8	static

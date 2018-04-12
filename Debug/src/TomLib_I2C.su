@@ -17,9 +17,9 @@ TomLib_I2C.c:15:6:TL_I2C_SetSlaveAddress	16	static
 TomLib_I2C.c:19:6:TL_I2C_Start	16	static
 TomLib_I2C.c:23:6:TL_I2C_Stop	16	static
 TomLib_I2C.c:27:6:TL_I2C_InitConfig	16	static
-TomLib_I2C.c:32:12:TL_I2C_WriteByte	16	static
-TomLib_I2C.c:42:9:TL_I2C_ReadByte	16	static
-TomLib_I2C.c:50:12:TL_I2C_SendData	32	static
-TomLib_I2C.c:70:6:TL_I2C_ReadData	40	static
-TomLib_I2C.c:88:6:TL_I2C_SendOneByte	16	static
-TomLib_I2C.c:106:9:TL_I2C_ReadOneByte	16	static
+TomLib_I2C.c:32:6:TL_I2C_WriteByte	16	static
+TomLib_I2C.c:38:9:TL_I2C_ReadByte	16	static
+TomLib_I2C.c:45:12:TL_I2C_SendData	32	static
+TomLib_I2C.c:66:12:TL_I2C_ReadData	40	static
+TomLib_I2C.c:88:12:TL_I2C_SendOneByte	16	static
+TomLib_I2C.c:108:9:TL_I2C_ReadOneByte	16	static

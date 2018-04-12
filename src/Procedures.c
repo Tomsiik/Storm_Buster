@@ -7,6 +7,7 @@
 
 #include "Periph_Init.h"
 #include "Procedures.h"
+#include "main.h"
 
 uint32_t calib_val;
 
@@ -68,17 +69,30 @@ void ADC_VC_Read(float *sens2, uint8_t *consumption) {
 /*Temperature*/
 void Temperature_Config(uint8_t config) {
 	uint8_t data[2] = { config, TEMP_CONF_REG };
-	TL_I2C_InitConfig(I2C2);
 	TL_I2C_SendData(I2C2, Temp_Addr, data, 2);
 }
 
 void Temperature_Read(uint16_t *temp) {
 	uint8_t data[2];
-	TL_I2C_InitConfig(I2C2);
 	TL_I2C_SendOneByte(I2C2, Temp_Addr, TEMP_TEMP_REG);
 	TL_I2C_ReadData(I2C2, Temp_Addr, data, 2);
 	*temp=(((uint16_t)data[0]<<4) | (data[1]>>4))*0.0625;
+}
+
+/*EEPROM*/
+void EEPROM_Write(uint8_t *array[]){
+	uint8_t size=4;
+	LL_GPIO_SetOutputPin(GPIOB,WP);
+	TL_I2C_SendData(I2C2,EEPROM_Addr,*array,3);
+
+
 
 
 }
+
+
+void EEPROM_Read(uint8_t *array[]){
+	LL_GPIO_SetOutputPin(GPIOB,WP);
+}
+
 

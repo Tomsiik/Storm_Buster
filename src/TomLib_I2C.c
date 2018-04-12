@@ -29,14 +29,10 @@ void TL_I2C_InitConfig(I2C_TypeDef *I2C) {
 	LL_I2C_EnableAutoEndMode(I2C);
 }
 
-I2C_result TL_I2C_WriteByte(I2C_TypeDef *I2C, uint8_t data) {
+void TL_I2C_WriteByte(I2C_TypeDef *I2C, uint8_t data) {
 	while (LL_I2C_IsActiveFlag_TXE(I2C) == 0) {
-		if (LL_I2C_IsActiveFlag_NACK(I2C)) {
-						return I2C_NOK;
-					}
 	}
 	LL_I2C_TransmitData8(I2C, data);
-	return I2C_OK;
 }
 
 uint8_t TL_I2C_ReadByte(I2C_TypeDef *I2C) {
@@ -44,10 +40,10 @@ uint8_t TL_I2C_ReadByte(I2C_TypeDef *I2C) {
 
 	}
 	return LL_I2C_ReceiveData8(I2C);
-
 }
 
 I2C_result TL_I2C_SendData(I2C_TypeDef *I2C, uint8_t addr, uint8_t data[],uint8_t size) {
+	LL_I2C_EnableAutoEndMode(I2C);
 	LL_I2C_SetTransferRequest(I2C, LL_I2C_REQUEST_WRITE);
 	TL_I2C_SetSlaveAddress(I2C, addr);
 	LL_I2C_SetTransferSize(I2C, size);
@@ -55,7 +51,7 @@ I2C_result TL_I2C_SendData(I2C_TypeDef *I2C, uint8_t addr, uint8_t data[],uint8_
 	for (uint8_t count = 0; count < size; count++) {
 
 		while (LL_I2C_IsActiveFlag_TXIS(I2C) == 0) {
-			if (LL_I2C_IsActiveFlag_NACK(I2C)) {
+			if(LL_I2C_IsActiveFlag_NACK(I2C)){
 				return I2C_NOK;
 			}
 		}
@@ -67,43 +63,50 @@ I2C_result TL_I2C_SendData(I2C_TypeDef *I2C, uint8_t addr, uint8_t data[],uint8_
 	return I2C_OK;
 }
 
-void TL_I2C_ReadData(I2C_TypeDef *I2C, uint8_t addr, uint8_t data[],
+I2C_result TL_I2C_ReadData(I2C_TypeDef *I2C, uint8_t addr, uint8_t data[],
 		uint8_t size) {
+	LL_I2C_EnableAutoEndMode(I2C);
 	LL_I2C_SetTransferRequest(I2C, LL_I2C_REQUEST_READ);
 	TL_I2C_SetSlaveAddress(I2C, addr);
 	LL_I2C_SetTransferSize(I2C, size);
 	TL_I2C_Start(I2C);
 	for (uint8_t count = 0; count < size; count++) {
-
+		if((size-1) && (LL_I2C_IsActiveFlag_NACK(I2C))){
+			return I2C_NOK;
+		}
 		data[count] = TL_I2C_ReadByte(I2C);
 	}
 	LL_I2C_ClearFlag_STOP(I2C);
 	while (LL_I2C_IsActiveFlag_BUSY(I2C) == 1) {
 	}
+	return I2C_OK;
 }
 
 /*Vyšle jeden byte na zvolenou adresu
  * parametr addr je tøeba vložit v osmibitovém formátu s pøiloženým bitem W
  */
-void TL_I2C_SendOneByte(I2C_TypeDef *I2C, uint8_t addr, uint8_t data) {
+I2C_result TL_I2C_SendOneByte(I2C_TypeDef *I2C, uint8_t addr, uint8_t data) {
+	LL_I2C_EnableAutoEndMode(I2C);
 	LL_I2C_SetTransferRequest(I2C, LL_I2C_REQUEST_WRITE);
 	TL_I2C_SetSlaveAddress(I2C, addr);
 	LL_I2C_SetTransferSize(I2C, 1);
 	TL_I2C_Start(I2C);
 
 	while (LL_I2C_IsActiveFlag_TXIS(I2C) == 0) {
-		if (LL_I2C_IsActiveFlag_NACK(I2C)) {
-			return 0;
-		}
+		if(LL_I2C_IsActiveFlag_NACK(I2C)){
+						return I2C_NOK;
+					}
 	}
 	TL_I2C_WriteByte(I2C, data);
 	LL_I2C_ClearFlag_STOP(I2C);
 	while (LL_I2C_IsActiveFlag_BUSY(I2C) == 1) {
 	}
+	return I2C_OK;
 
 }
 
 uint8_t TL_I2C_ReadOneByte(I2C_TypeDef *I2C, uint8_t addr) {
+	LL_I2C_EnableAutoEndMode(I2C);
 	LL_I2C_SetTransferRequest(I2C, LL_I2C_REQUEST_READ);
 	TL_I2C_SetSlaveAddress(I2C, addr);
 	LL_I2C_SetTransferSize(I2C, 1);
