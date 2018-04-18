@@ -58,8 +58,8 @@ I2C_result TL_I2C_SendData(I2C_TypeDef *I2C, uint8_t addr, uint8_t data[],uint8_
 		TL_I2C_WriteByte(I2C, data[count]);
 	}
 	LL_I2C_ClearFlag_STOP(I2C);
-	while (LL_I2C_IsActiveFlag_BUSY(I2C) == 1) {
-	}
+	while(LL_I2C_IsActiveFlag_TC(I2C)==1){}
+	//while (LL_I2C_IsActiveFlag_BUSY(I2C) == 1) {}
 	return I2C_OK;
 }
 

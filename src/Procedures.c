@@ -80,19 +80,20 @@ void Temperature_Read(uint16_t *temp) {
 }
 
 /*EEPROM*/
-void EEPROM_Write(uint8_t *array[]){
-	uint8_t size=4;
+void EEPROM_Write(uint8_t *data[]){
+	LL_GPIO_ResetOutputPin(GPIOB,WP);
+	TL_I2C_SendData(I2C2,EEPROM_Addr,*data,6);
 	LL_GPIO_SetOutputPin(GPIOB,WP);
-	TL_I2C_SendData(I2C2,EEPROM_Addr,*array,3);
-
-
-
 
 }
 
 
-void EEPROM_Read(uint8_t *array[]){
+void EEPROM_Read(uint8_t data[]){
 	LL_GPIO_SetOutputPin(GPIOB,WP);
+	TL_I2C_SendOneByte(I2C2,EEPROM_Addr,0x01);
+	LL_GPIO_ResetOutputPin(GPIOB,WP);
+	TL_I2C_ReadData(I2C2,EEPROM_Addr,data,5);
+
 }
 
 

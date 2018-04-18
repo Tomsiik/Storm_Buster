@@ -20,9 +20,9 @@ void Temperature_Config(uint8_t config);
 void Temperature_Read(uint16_t *temp);
 
 //EEPROM
-void EEPROM_Write(uint8_t *array[]);
+void EEPROM_Write(uint8_t *data[]);
 
-void EEPROM_Read(uint8_t * array[]);
+void EEPROM_Read(uint8_t data[]);
 
 //LIGHTNING
 
