@@ -77,8 +77,8 @@ I2C_result TL_I2C_ReadData(I2C_TypeDef *I2C, uint8_t addr, uint8_t data[],
 		data[count] = TL_I2C_ReadByte(I2C);
 	}
 	LL_I2C_ClearFlag_STOP(I2C);
-	while (LL_I2C_IsActiveFlag_BUSY(I2C) == 1) {
-	}
+	while(LL_I2C_IsActiveFlag_TC(I2C)==1){}
+	//while (LL_I2C_IsActiveFlag_BUSY(I2C) == 1) {}
 	return I2C_OK;
 }
 
@@ -99,8 +99,8 @@ I2C_result TL_I2C_SendOneByte(I2C_TypeDef *I2C, uint8_t addr, uint8_t data) {
 	}
 	TL_I2C_WriteByte(I2C, data);
 	LL_I2C_ClearFlag_STOP(I2C);
-	while (LL_I2C_IsActiveFlag_BUSY(I2C) == 1) {
-	}
+	while(LL_I2C_IsActiveFlag_TC(I2C)==1){}
+	//while (LL_I2C_IsActiveFlag_BUSY(I2C) == 1) {}
 	return I2C_OK;
 
 }
@@ -113,6 +113,6 @@ uint8_t TL_I2C_ReadOneByte(I2C_TypeDef *I2C, uint8_t addr) {
 	TL_I2C_Start(I2C);
 	return TL_I2C_ReadByte(I2C);
 	LL_I2C_ClearFlag_STOP(I2C);
-	while (LL_I2C_IsActiveFlag_BUSY(I2C) == 1) {
-	}
+	while(LL_I2C_IsActiveFlag_TC(I2C2)==1){}
+	//while (LL_I2C_IsActiveFlag_BUSY(I2C) == 1) {}
 }

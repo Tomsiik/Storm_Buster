@@ -8,6 +8,8 @@
 #include "Periph_Init.h"
 #include "Procedures.h"
 #include "main.h"
+#include "TomLib_I2C.h"
+
 
 uint32_t calib_val;
 
@@ -32,7 +34,7 @@ void ADC_StartConversion() {
 /* Mereni vstupniho napìtí USB, a odbìr z 3V3 vìtve (core voltage)
  *
  */
-void ADC_VC_Read(float *sens2, uint8_t *consumption) {
+void ADC_VC_Read(float *sens, uint8_t *consumption) {
 
 	uint32_t vrefin_data = 0;
 	uint32_t rawdata1 = 0;
@@ -59,7 +61,7 @@ void ADC_VC_Read(float *sens2, uint8_t *consumption) {
 	voltage2 = (3.0 * calib_val * rawdata2 / ((float) vrefin_data * 4095));
 	voltage2 *= 4;
 
-	*sens2 = voltage2;
+	*sens = voltage2;
 
 	voltage_diff = voltage2 - voltage1;	//rozdílové napìtí na vstupech - napìtí na shunt rezistoru
 	*consumption = (uint8_t) ((voltage_diff / ShuntR) * 1000); //výpoèet proudu do napájení jádra
@@ -72,12 +74,19 @@ void Temperature_Config(uint8_t config) {
 	TL_I2C_SendData(I2C2, Temp_Addr, data, 2);
 }
 
-void Temperature_Read(uint16_t *temp) {
+void Temperature_Read_int(uint16_t *temp) {
 	uint8_t data[2];
 	TL_I2C_SendOneByte(I2C2, Temp_Addr, TEMP_TEMP_REG);
 	TL_I2C_ReadData(I2C2, Temp_Addr, data, 2);
 	*temp=(((uint16_t)data[0]<<4) | (data[1]>>4))*0.0625;
 }
+void Temperature_Read_float(float *temp) {
+	uint8_t data[2];
+	TL_I2C_SendOneByte(I2C2, Temp_Addr, TEMP_TEMP_REG);
+	TL_I2C_ReadData(I2C2, Temp_Addr, data, 2);
+	*temp=(((uint16_t)data[0]<<4) | (data[1]>>4))*0.0625;
+}
+
 
 /*EEPROM*/
 void EEPROM_Write(uint8_t *data[]){
@@ -88,12 +97,24 @@ void EEPROM_Write(uint8_t *data[]){
 }
 
 
-void EEPROM_Read(uint8_t data[]){
-	LL_GPIO_SetOutputPin(GPIOB,WP);
-	TL_I2C_SendOneByte(I2C2,EEPROM_Addr,0x01);
-	LL_GPIO_ResetOutputPin(GPIOB,WP);
-	TL_I2C_ReadData(I2C2,EEPROM_Addr,data,5);
-
+void EEPROM_Read(uint8_t *data,uint8_t size){
+		LL_GPIO_SetOutputPin(GPIOB,WP);
+		LL_I2C_DisableAutoEndMode(I2C2);
+		LL_I2C_SetTransferRequest(I2C2, LL_I2C_REQUEST_WRITE);
+		TL_I2C_SetSlaveAddress(I2C2, EEPROM_Addr);
+		LL_I2C_SetTransferSize(I2C2, 1);
+		TL_I2C_Start(I2C2);
+		TL_I2C_WriteByte(I2C2, 0x01);
+		LL_I2C_ClearFlag_STOP(I2C2);
+		while(LL_I2C_IsActiveFlag_TC(I2C2)==0){}
+		LL_I2C_DisableAutoEndMode(I2C2);
+		LL_I2C_SetTransferRequest(I2C2, LL_I2C_REQUEST_READ);
+		LL_I2C_SetTransferSize(I2C2,size);
+		TL_I2C_Start(I2C2);
+		for(uint8_t y=0;y<size;y++){
+		data[y]=TL_I2C_ReadByte(I2C2);
+		}
+		TL_I2C_Stop(I2C2);
+		LL_I2C_ClearFlag_STOP(I2C2);
+		//while(LL_I2C_IsActiveFlag_TC(I2C2)==1){}
 }
-
-

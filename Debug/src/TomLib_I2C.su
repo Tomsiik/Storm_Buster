@@ -4,7 +4,6 @@ stm32l4xx_ll_i2c.h:1540:26:LL_I2C_IsActiveFlag_TXIS	16	static
 stm32l4xx_ll_i2c.h:1553:26:LL_I2C_IsActiveFlag_RXNE	16	static
 stm32l4xx_ll_i2c.h:1579:26:LL_I2C_IsActiveFlag_NACK	16	static
 stm32l4xx_ll_i2c.h:1605:26:LL_I2C_IsActiveFlag_TC	16	static
-stm32l4xx_ll_i2c.h:1716:26:LL_I2C_IsActiveFlag_BUSY	16	static
 stm32l4xx_ll_i2c.h:1749:22:LL_I2C_ClearFlag_STOP	16	static
 stm32l4xx_ll_i2c.h:1854:22:LL_I2C_EnableAutoEndMode	16	static
 stm32l4xx_ll_i2c.h:1925:22:LL_I2C_SetTransferSize	16	static
