@@ -118,3 +118,31 @@ void EEPROM_Read(uint8_t *data,uint8_t size){
 		LL_I2C_ClearFlag_STOP(I2C2);
 		//while(LL_I2C_IsActiveFlag_TC(I2C2)==1){}
 }
+
+
+/*LIGHTNING*/
+uint8_t AS3935_REG_Read(uint8_t reg){
+	uint8_t dummy = 0x00;
+	uint8_t r_data;
+	TL_SPI_Reset_CSN(LGHTNG_CS);
+	TL_SPI_Transmit_Byte(SPI2,R_REG(reg));
+	r_data=TL_SPI_ReceiveTransmit_Byte(SPI2,dummy);
+	TL_SPI_Set_CSN(LGHTNG_CS);
+	return r_data;
+}
+
+void AS3935_REG_Write(uint8_t reg,uint8_t data){
+	TL_SPI_Reset_CSN(LGHTNG_CS);
+	TL_SPI_Transmit_Byte(SPI2,W_REG(reg));
+	TL_SPI_Transmit_Byte(SPI2,data);
+	TL_SPI_Set_CSN(LGHTNG_CS);
+}
+
+void AS3935_REG_SetDef(){
+	TL_SPI_Reset_CSN(LGHTNG_CS);
+	TL_SPI_Transmit_Byte(SPI2,W_REG(0x3C));
+	TL_SPI_Transmit_Byte(SPI2,0x96);
+	TL_SPI_Set_CSN(LGHTNG_CS);
+}
+
+

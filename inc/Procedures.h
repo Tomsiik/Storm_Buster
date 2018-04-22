@@ -25,7 +25,9 @@ void EEPROM_Write(uint8_t *data[]);
 void EEPROM_Read(uint8_t *data, uint8_t size);
 
 //LIGHTNING
-
+uint8_t AS3935_REG_Read(uint8_t reg);
+void AS3935_REG_Write(uint8_t reg,uint8_t data);
+void AS3935_REG_SetDef();
 //UART_HMI
 
 //UART_USB

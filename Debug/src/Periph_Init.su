@@ -53,7 +53,7 @@ stm32l4xx_ll_usart.h:697:22:LL_USART_Enable	16	static
 stm32l4xx_ll_usart.h:1344:22:LL_USART_DisableSCLKOutput	16	static
 Periph_Init.c:4:6:SystemClock_Config	8	static
 Periph_Init.c:40:6:GPIO_Init	8	static
-Periph_Init.c:127:6:SPI2_Init	48	static
-Periph_Init.c:147:6:USART2_Init	40	static
-Periph_Init.c:165:6:I2C2_Init	40	static
-Periph_Init.c:181:6:ADC_Init	8	static
+Periph_Init.c:128:6:SPI2_Init	48	static
+Periph_Init.c:148:6:USART2_Init	40	static
+Periph_Init.c:166:6:I2C2_Init	40	static
+Periph_Init.c:182:6:ADC_Init	8	static

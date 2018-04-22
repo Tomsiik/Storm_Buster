@@ -77,8 +77,11 @@ void ADC_Init(void);
 #define TEMP_TEMP_REG 0x00
 #define TEMP_CONF_REG 0x01
 
+/*AS3935*/
 
-
+//regs
+#define	W_REG(reg)  0x00 | reg
+#define R_REG(reg)	0x40 | reg
 
 #endif /* PERIPH_INIT_H_ */
 
