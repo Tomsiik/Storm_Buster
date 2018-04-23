@@ -15,6 +15,11 @@
 #include "stm32l4xx_ll_i2c.h"
 #include "stm32l4xx_ll_usart.h"
 #include "stm32l4xx_ll_adc.h"
+#include "stm32l4xx_ll_exti.h"
+#include "stm32l4xx_ll_system.h"
+#include "stm32l4xx_it.h"
+
+
 
 
 #ifndef PERIPH_INIT_H_

@@ -15,6 +15,7 @@
 #include <cmsis_os.h>
 #endif
 #include "stm32l4xx_it.h"
+#include"Periph_Init.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -32,11 +33,7 @@
   * @param  None
   * @retval None
   */
-//void _Error_Handler(char * file, int line) {
-//	printf("chyba");
-//	while (1) {
-//	}
-//}
+
 
 __IO uint32_t TimmingDelay;
 
@@ -47,7 +44,13 @@ void SysTick_Handler(void)
 	}
 }
 
+void EXTI9_5_IRQHandler(void){
+	if(LL_EXTI_IsActiveFlag_0_31(LL_EXTI_LINE_6)){
 
+		GPIOC->ODR |= ULED2;
+		LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_6);
+	}
+}
 
 #ifdef USE_RTOS_SYSTICK
 	osSystickHandler();

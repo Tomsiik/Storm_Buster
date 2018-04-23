@@ -1,4 +1,5 @@
 core_cm4.h:1615:26:NVIC_GetPriorityGrouping	4	static
+core_cm4.h:1626:22:NVIC_EnableIRQ	16	static
 core_cm4.h:1698:22:NVIC_SetPriority	16	static
 core_cm4.h:1745:26:NVIC_EncodePriority	40	static
 core_cm4.h:1830:26:SysTick_Config	16	static
@@ -51,9 +52,10 @@ stm32l4xx_ll_i2c.h:407:22:LL_I2C_Enable	16	static
 stm32l4xx_ll_i2c.h:421:22:LL_I2C_Disable	16	static
 stm32l4xx_ll_usart.h:697:22:LL_USART_Enable	16	static
 stm32l4xx_ll_usart.h:1344:22:LL_USART_DisableSCLKOutput	16	static
+stm32l4xx_ll_system.h:788:22:LL_SYSCFG_SetEXTISource	24	static
 Periph_Init.c:4:6:SystemClock_Config	8	static
-Periph_Init.c:40:6:GPIO_Init	8	static
-Periph_Init.c:128:6:SPI2_Init	48	static
-Periph_Init.c:148:6:USART2_Init	40	static
-Periph_Init.c:166:6:I2C2_Init	40	static
-Periph_Init.c:182:6:ADC_Init	8	static
+Periph_Init.c:40:6:GPIO_Init	24	static
+Periph_Init.c:138:6:SPI2_Init	48	static
+Periph_Init.c:160:6:USART2_Init	40	static
+Periph_Init.c:178:6:I2C2_Init	40	static
+Periph_Init.c:194:6:ADC_Init	8	static
