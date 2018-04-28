@@ -29,9 +29,10 @@ int main(void) {
 	EEPROM_Write(eeprom_data);
 	EEPROM_Read(eeprom_data_r,5);
 	//EEPROM_Read(eeprom_data_r);
-
+	//AS3935_REG_Write(0x01,0b00110010);
 	while (1) {
-
+		TL_USART_putByte(USART2,'A');
+		TL_mDelay(100);
 		LL_GPIO_SetOutputPin(GPIOA, _3V3_EN	);
 		LL_GPIO_SetOutputPin(GPIOA, _5V_EN	);
 		//LL_GPIO_SetOutputPin(GPIOC,ULED1);
@@ -39,13 +40,13 @@ int main(void) {
 		//ADC_VC_Read(&voltage,&consumption);
 		//Temperature_Config(0x00);
 		//Temperature_Read_float(&temp);
-		TL_TIM6_Delay(50000);
+		//TL_TIM6_Delay(50000);
 		//GPIOC->ODR = 0;
 		//ADC_VC_Read(&voltage,&consumption);
-		as3935_reg=AS3935_REG_Read(0x01);
-		AS3935_REG_Write(0x01,0x32);
-		as3935_reg=AS3935_REG_Read(0x01);
-		TL_TIM6_Delay(50000);
+		//as3935_reg=AS3935_REG_Read(0x01);
+		//AS3935_REG_Write(0x01,0x32);
+		//as3935_reg=AS3935_REG_Read(0x01);
+		//TL_TIM6_Delay(50000);
 
 	}
 }

@@ -5,11 +5,12 @@
  *      Author: Tomsik
  */
 
-#include "Periph_Init.h"
-#include "Procedures.h"
-#include "main.h"
-#include "TomLib_I2C.h"
 
+#include "main.h"
+#include "Procedures.h"
+#include "stm32l4xx.h"
+#include "stm32l4xx_ll_gpio.h"
+#include "stm32l4xx_ll_i2c.h"
 
 uint32_t calib_val;
 

@@ -7,6 +7,8 @@
 
 #ifndef PROCEDURES_H_
 #define PROCEDURES_H_
+#include "main.h"
+#include "stm32l4xx.h"
 
 //ADC
 uint32_t ADC_CALIB_REF_Read(void);

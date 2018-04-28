@@ -8,7 +8,8 @@
 #ifndef TOMLIB_USART_H_
 #define TOMLIB_USART_H_
 
-#include "stm32l4xx_ll_usart.h"
+
+#include "stm32l4xx.h"
 
 typedef enum {
 	TRUE = 0x01,

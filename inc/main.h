@@ -9,8 +9,16 @@
 #define MAIN_H_
 
 #include "Periph_Init.h"
-#include "TomLib_SYS.h"
 #include "Procedures.h"
+#include "TomLib_SYS.h"
+#include "Periph_Init.h"
+#include "TomLib_I2C.h"
+#include "TomLib_SPI.h"
+#include "TomLib_USART.h"
+
+#include "stm32l433xx.h"
+#include "stm32l4xx.h"
+#include "stm32l4xx_ll_gpio.h"
 
 
 #ifndef NVIC_PRIORITYGROUP_0

@@ -9,7 +9,8 @@
 #define TOMLIB_I2C_H_
 
 
-#include "stm32l4xx_ll_i2c.h"
+
+#include "stm32l4xx.h"
 
 
 typedef enum{

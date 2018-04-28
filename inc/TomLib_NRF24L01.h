@@ -15,9 +15,9 @@
 
 
 
+
+#include "stm32l4xx.h"
 #include "stm32l4xx_ll_gpio.h"
-
-
 
 #define NRF24_CSN LL_GPIO_PIN_7	//bank B
 #define NRF24_CE LL_GPIO_PIN_8 	//bank B

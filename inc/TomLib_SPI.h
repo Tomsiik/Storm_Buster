@@ -7,9 +7,9 @@
 
 #ifndef TOMLIB_SPI_H_
 #define TOMLIB_SPI_H_
-//#include "main.h"
-#include "stm32l4xx_ll_spi.h"
 
+#include "stm32l4xx_ll_spi.h"
+#include "stm32l4xx.h"
 
 
 

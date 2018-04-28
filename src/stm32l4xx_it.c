@@ -46,8 +46,10 @@ void SysTick_Handler(void)
 
 void EXTI9_5_IRQHandler(void){
 	if(LL_EXTI_IsActiveFlag_0_31(LL_EXTI_LINE_6)){
-
+		AS3935_REG_Read(0x03);
 		GPIOC->ODR |= ULED2;
+		TL_TIM6_Delay(10000);
+		GPIOC->ODR = 0;
 		LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_6);
 	}
 }

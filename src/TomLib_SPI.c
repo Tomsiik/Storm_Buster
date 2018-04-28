@@ -7,7 +7,7 @@
 
 #include"TomLib_SPI.h"
 #include"stm32l4xx_ll_gpio.h"
-
+#include "stm32l4xx.h"
 
 void TL_SPI_Set_CSN(uint32_t Pin){
 	//while(LL_SPI_IsActiveFlag_BSY(TL_SPI)==1){}

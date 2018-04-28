@@ -11,6 +11,8 @@
  *************************************************************************************************/
 
 #include "TomLib_I2c.h"
+#include "stm32l4xx_ll_i2c.h"
+#include "stm32l4xx.h"
 
 void TL_I2C_SetSlaveAddress(I2C_TypeDef *I2C, uint8_t address) {
 	LL_I2C_SetSlaveAddr(I2C, address);
