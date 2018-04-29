@@ -23,6 +23,9 @@ int main(void) {
 	GPIO_Init();
 	TIM6_Init();
 	ADC_Init();
+	//TL_mDelay(100);
+	IRQ_Init();
+
 	calib_val = ADC_CALIB_REF_Read();
 	GPIOC->ODR = 0;
 
