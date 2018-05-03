@@ -11,6 +11,8 @@
 #include "stm32l4xx_ll_exti.h"
 #include "stm32l4xx_ll_pwr.h"
 #include "stm32l4xx_ll_system.h"
+
+
 void SystemClock_Config(void) {
 	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
 	LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
@@ -39,7 +41,7 @@ void SystemClock_Config(void) {
 
 	LL_SYSTICK_SetClkSource(LL_SYSTICK_CLKSOURCE_HCLK);
 	SysTick_Config(SystemCoreClock / 100000);
-	NVIC_SetPriority(SysTick_IRQn,NVIC_EncodePriority(NVIC_GetPriorityGrouping(), 0, 0));
+	NVIC_SetPriority(SysTick_IRQn,0);
 	LL_SYSTICK_DisableIT();
 	LL_RCC_SetADCClockSource(LL_RCC_ADC_CLKSOURCE_SYSCLK);
 
@@ -159,20 +161,38 @@ void SPI2_Init(void)
 
 }
 
+void USART1_Init(void){
+
+	LL_USART_InitTypeDef USART1_InitStruct;
+	LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_USART1);
+
+	USART1_InitStruct.BaudRate=115200;
+	USART1_InitStruct.DataWidth=LL_USART_DATAWIDTH_8B;
+	USART1_InitStruct.HardwareFlowControl=LL_USART_HWCONTROL_NONE;
+	USART1_InitStruct.OverSampling=LL_USART_OVERSAMPLING_8;
+	USART1_InitStruct.Parity=LL_USART_PARITY_NONE;
+	USART1_InitStruct.StopBits=LL_USART_STOPBITS_1;
+	USART1_InitStruct.TransferDirection=LL_USART_DIRECTION_TX_RX;
+	LL_USART_DisableSCLKOutput(USART1);
+	LL_USART_Init(USART1,&USART1_InitStruct);
+	LL_USART_Enable(USART1);
+
+}
+
 void USART2_Init(void){
 
-	LL_USART_InitTypeDef USART_InitStruct;
+	LL_USART_InitTypeDef USART2_InitStruct;
 	LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_USART2);
 
-	USART_InitStruct.BaudRate=115200;
-	USART_InitStruct.DataWidth=LL_USART_DATAWIDTH_8B;
-	USART_InitStruct.HardwareFlowControl=LL_USART_HWCONTROL_NONE;
-	USART_InitStruct.OverSampling=LL_USART_OVERSAMPLING_8;
-	USART_InitStruct.Parity=LL_USART_PARITY_NONE;
-	USART_InitStruct.StopBits=LL_USART_STOPBITS_1;
-	USART_InitStruct.TransferDirection=LL_USART_DIRECTION_TX_RX;
+	USART2_InitStruct.BaudRate=115200;
+	USART2_InitStruct.DataWidth=LL_USART_DATAWIDTH_8B;
+	USART2_InitStruct.HardwareFlowControl=LL_USART_HWCONTROL_NONE;
+	USART2_InitStruct.OverSampling=LL_USART_OVERSAMPLING_8;
+	USART2_InitStruct.Parity=LL_USART_PARITY_NONE;
+	USART2_InitStruct.StopBits=LL_USART_STOPBITS_1;
+	USART2_InitStruct.TransferDirection=LL_USART_DIRECTION_TX_RX;
 	LL_USART_DisableSCLKOutput(USART2);
-	LL_USART_Init(USART2,&USART_InitStruct);
+	LL_USART_Init(USART2,&USART2_InitStruct);
 	LL_USART_Enable(USART2);
 
 }
@@ -193,7 +213,7 @@ void I2C2_Init(void){
 
 }
 
-void ADC_Init(){
+void ADC_Init(void){
 	LL_AHB2_GRP1_EnableClock(LL_AHB2_GRP1_PERIPH_GPIOC);
 	LL_GPIO_SetPinMode(GPIOC,LL_GPIO_PIN_0,LL_GPIO_MODE_ANALOG);
 	LL_GPIO_SetPinPull(GPIOC,LL_GPIO_PIN_0,LL_GPIO_PULL_NO);
@@ -239,7 +259,8 @@ void ADC_Init(){
 
 }
 
-void IRQ_Init(){
+void IRQ_Init(void){
+	/*GPIO IRQ (AS3935)*/
 	LL_EXTI_InitTypeDef EXTI_IRQ;
 	EXTI_IRQ.Line_0_31=LL_EXTI_LINE_6;
 	EXTI_IRQ.Mode=LL_EXTI_MODE_IT;
@@ -248,5 +269,18 @@ void IRQ_Init(){
 	LL_EXTI_Init(&EXTI_IRQ);
 
 	LL_SYSCFG_SetEXTISource(LL_SYSCFG_EXTI_PORTC,LL_SYSCFG_EXTI_LINE6);
+	NVIC_EnableIRQ(EXTI9_5_IRQn);
+	NVIC_SetPriority(EXTI9_5_IRQn,1);
+
+	/*USART1 IRQ*/
+	NVIC_SetPriority(USART1_IRQn,2);
+	NVIC_EnableIRQ(USART1_IRQn);
+	LL_USART_EnableIT_RXNE(USART1);
+
+	/*USART2 IRQ*/
+	NVIC_SetPriority(USART2_IRQn,3);
+	NVIC_EnableIRQ(USART2_IRQn);
+	LL_USART_EnableIT_RXNE(USART2);
+
 
 }

@@ -16,23 +16,10 @@
 #endif
 #include "stm32l4xx_it.h"
 #include"Periph_Init.h"
+#include "stm32l4xx_ll_usart.h"
 
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
 
-/******************************************************************************/
-/*            	  	    Processor Exceptions Handlers                         */
-/******************************************************************************/
 
-/**
-  * @brief  This function handles SysTick Handler, but only if no RTOS defines it.
-  * @param  None
-  * @retval None
-  */
 
 
 __IO uint32_t TimmingDelay;
@@ -53,6 +40,27 @@ void EXTI9_5_IRQHandler(void){
 		LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_6);
 	}
 }
+
+void USART2_IRQHandler(){
+	if(LL_USART_IsActiveFlag_RXNE(USART2)){
+
+
+
+
+		LL_USART_ReceiveData8(USART2);
+	}
+}
+
+void USART1_IRQHandler(){
+	if(LL_USART_IsActiveFlag_RXNE(USART1)){
+
+
+
+
+		LL_USART_ReceiveData8(USART1);
+	}
+}
+
 
 #ifdef USE_RTOS_SYSTICK
 	osSystickHandler();

@@ -18,13 +18,14 @@ uint8_t as3935_reg;
 int main(void) {
 	SystemClock_Config();
 	SPI2_Init();
+	USART1_Init();
 	USART2_Init();
 	I2C2_Init();
 	GPIO_Init();
 	TIM6_Init();
 	ADC_Init();
 	//TL_mDelay(100);
-	IRQ_Init();
+	IRQ_Init(); //nutno inicializovat po všech periferiích
 
 	calib_val = ADC_CALIB_REF_Read();
 	GPIOC->ODR = 0;

@@ -17,7 +17,7 @@ void USART1_Init(void);
 void USART2_Init(void);
 void I2C2_Init(void);
 void ADC_Init(void);
-void IRQ_Init();
+void IRQ_Init(void);
 
 
 /*Pinout definition*/
@@ -72,6 +72,8 @@ void IRQ_Init();
 //regs
 #define	W_REG(reg)  0x00 | reg
 #define R_REG(reg)	0x40 | reg
+
+
 
 #endif /* PERIPH_INIT_H_ */
 
