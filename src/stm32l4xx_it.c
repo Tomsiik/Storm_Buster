@@ -27,9 +27,9 @@ uint8_t bufferUSART1[];
 
 void SysTick_Handler(void)
 {	 if(TimmingDelay !=0)
-	{	//GPIOC->ODR = 0;
+	{
 		TimmingDelay --;
-		GPIOC->ODR = LL_GPIO_PIN_2;
+
 	}
 }
 

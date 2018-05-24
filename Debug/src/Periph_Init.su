@@ -26,6 +26,10 @@ stm32l4xx_ll_gpio.h:505:22:LL_GPIO_SetPinPull	40	static
 stm32l4xx_ll_gpio.h:577:22:LL_GPIO_SetAFPin_0_7	40	static
 stm32l4xx_ll_gpio.h:654:22:LL_GPIO_SetAFPin_8_15	40	static
 stm32l4xx_ll_gpio.h:964:22:LL_GPIO_SetOutputPin	16	static
+stm32l4xx_ll_usart.h:697:22:LL_USART_Enable	16	static
+stm32l4xx_ll_usart.h:1344:22:LL_USART_DisableSCLKOutput	16	static
+stm32l4xx_ll_usart.h:1871:22:LL_USART_DisableOverrunDetect	16	static
+stm32l4xx_ll_usart.h:3629:22:LL_USART_EnableIT_RXNE	16	static
 stm32l4xx_ll_bus.h:578:22:LL_AHB2_GRP1_EnableClock	24	static
 stm32l4xx_ll_bus.h:1102:22:LL_APB1_GRP1_EnableClock	24	static
 stm32l4xx_ll_bus.h:1688:22:LL_APB2_GRP1_EnableClock	24	static
@@ -48,10 +52,6 @@ stm32l4xx_ll_rcc.h:3654:22:LL_RCC_PLL_ConfigDomain_SYS	24	static
 stm32l4xx_ll_rcc.h:4011:22:LL_RCC_PLL_EnableDomain_SYS	4	static
 stm32l4xx_ll_i2c.h:407:22:LL_I2C_Enable	16	static
 stm32l4xx_ll_i2c.h:421:22:LL_I2C_Disable	16	static
-stm32l4xx_ll_usart.h:697:22:LL_USART_Enable	16	static
-stm32l4xx_ll_usart.h:1344:22:LL_USART_DisableSCLKOutput	16	static
-stm32l4xx_ll_usart.h:1871:22:LL_USART_DisableOverrunDetect	16	static
-stm32l4xx_ll_usart.h:3629:22:LL_USART_EnableIT_RXNE	16	static
 stm32l4xx_ll_system.h:788:22:LL_SYSCFG_SetEXTISource	24	static
 stm32l4xx_ll_system.h:1416:22:LL_FLASH_SetLatency	16	static
 Periph_Init.c:16:6:SystemClock_Config	8	static

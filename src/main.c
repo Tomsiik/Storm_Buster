@@ -20,15 +20,17 @@ uint8_t i;
 int main(void) {
 	SystemClock_Config();
 	TIM6_Init();
+	GPIO_Init();
+	LL_GPIO_SetOutputPin(GPIOA, _3V3_EN	);
+	LL_GPIO_SetOutputPin(GPIOA, _5V_EN	);
+	TL_mDelay(250);
+
 	SPI2_Init();
 	USART1_Init();
 	USART2_Init();
 	I2C2_Init();
-	GPIO_Init();
-	LL_GPIO_SetOutputPin(GPIOA, _3V3_EN	);
-	LL_GPIO_SetOutputPin(GPIOA, _5V_EN	);
-	//ADC_Init();
-	TL_TIM6_Delay(10);
+	ADC_Init();
+
 	IRQ_Init(); //nutno inicializovat po všech periferiích
 
 	//calib_val = ADC_CALIB_REF_Read();
@@ -40,16 +42,18 @@ int main(void) {
 	//AS3935_REG_Write(0x01,0b00110010);
 
 	while (1) {
-		TL_USART_printf(USART1,"va0.val=15");
-		TL_USART_putByte(USART1,255);
-		TL_USART_putByte(USART1,255);
-		TL_USART_putByte(USART1,255);
-		TL_mDelay(500);
-		TL_USART_printf(USART1,"va0.val=128");
-		TL_USART_putByte(USART1,255);
-		TL_USART_putByte(USART1,255);
-		TL_USART_putByte(USART1,255);
-		TL_mDelay(500);
+
+//		TL_USART_printf(USART1,"va0.val=15");
+//		TL_USART_putByte(USART1,255);
+//		TL_USART_putByte(USART1,255);
+//		TL_USART_putByte(USART1,255);
+		//TL_mDelay(100);
+
+//		TL_USART_printf(USART1,"va0.val=128");
+//		TL_USART_putByte(USART1,255);
+//		TL_USART_putByte(USART1,255);
+//		TL_USART_putByte(USART1,255);
+		//TL_mDelay(100);
 
 
 	}

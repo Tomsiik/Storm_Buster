@@ -278,8 +278,9 @@ void IRQ_Init(void){
 
 	/*USART1 IRQ*/
 	NVIC_SetPriority(USART1_IRQn,2);
-	NVIC_EnableIRQ(USART1_IRQn);
 	LL_USART_EnableIT_RXNE(USART1);
+	NVIC_EnableIRQ(USART1_IRQn);
+
 
 	/*USART2 IRQ*/
 	NVIC_SetPriority(USART2_IRQn,3);

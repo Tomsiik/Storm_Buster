@@ -19,7 +19,7 @@
 #include "stm32l433xx.h"
 #include "stm32l4xx.h"
 #include "stm32l4xx_ll_gpio.h"
-
+#include "stm32l4xx_ll_usart.h"
 
 #ifndef NVIC_PRIORITYGROUP_0
 #define NVIC_PRIORITYGROUP_0         ((uint32_t)0x00000007) /*!< 0 bit  for pre-emption priority,
