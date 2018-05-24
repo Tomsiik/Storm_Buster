@@ -22,7 +22,6 @@ void TL_USART_printf(USART_TypeDef *USARTx,char charr[]){
 		TL_USART_putByte(USARTx,charr[i]);
 	}
 }
-
 void TL_USART_putBuffer(USART_TypeDef *USARTx,uint8_t data[],uint8_t size){
 	for(int i=0;i<size;i++){
 		TL_USART_putByte(USARTx,data[i]);

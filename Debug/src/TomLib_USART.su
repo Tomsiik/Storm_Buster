@@ -4,6 +4,6 @@ stm32l4xx_ll_usart.h:4521:25:LL_USART_ReceiveData8	16	static
 stm32l4xx_ll_usart.h:4544:22:LL_USART_TransmitData8	16	static
 TomLib_USART.c:15:6:TL_USART_putByte	16	static
 TomLib_USART.c:20:6:TL_USART_printf	24	static
-TomLib_USART.c:26:6:TL_USART_putBuffer	32	static
-TomLib_USART.c:32:14:TL_USART_Available	16	static
-TomLib_USART.c:42:9:TL_USART_ReadByte	16	static
+TomLib_USART.c:25:6:TL_USART_putBuffer	32	static
+TomLib_USART.c:31:14:TL_USART_Available	16	static
+TomLib_USART.c:41:9:TL_USART_ReadByte	16	static
