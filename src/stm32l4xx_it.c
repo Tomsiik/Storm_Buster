@@ -24,6 +24,7 @@
 
 __IO uint32_t TimmingDelay;
 uint8_t bufferUSART1[];
+uint8_t count;
 
 void SysTick_Handler(void)
 {	 if(TimmingDelay !=0)
@@ -51,9 +52,10 @@ void USART2_IRQHandler(){
 
 void USART1_IRQHandler(){
 	if(LL_USART_IsActiveFlag_RXNE(USART1)){
-		uint8_t count;
 		bufferUSART1[count]=LL_USART_ReceiveData8(USART1);
 		count++;
+
+
 
 	}
 

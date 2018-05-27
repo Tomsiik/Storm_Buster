@@ -11,6 +11,7 @@
 #include "stm32l4xx_ll_exti.h"
 #include "stm32l4xx_ll_pwr.h"
 #include "stm32l4xx_ll_system.h"
+#include "stm32l4xx_ll_tim.h"
 
 
 void SystemClock_Config(void) {
@@ -287,5 +288,17 @@ void IRQ_Init(void){
 	NVIC_EnableIRQ(USART2_IRQn);
 	LL_USART_EnableIT_RXNE(USART2);
 
+}
+
+void TIM7_Init(){
+	LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM7);
+	LL_TIM_InitTypeDef TIM7_Init;
+	TIM7_Init.Autoreload=2000;//0xFFFFFFFFU;
+	TIM7_Init.ClockDivision=LL_TIM_CLOCKDIVISION_DIV1;
+	TIM7_Init.CounterMode=LL_TIM_COUNTERDIRECTION_UP;
+	TIM7_Init.Prescaler=31999;
+	TIM7_Init.RepetitionCounter=0;
+	LL_TIM_Init(TIM7,&TIM7_Init);
 
 }
+

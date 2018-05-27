@@ -11,6 +11,7 @@
 #include "stm32l4xx.h"
 #include "stm32l4xx_ll_gpio.h"
 #include "stm32l4xx_ll_i2c.h"
+#include "stm32l4xx_ll_tim.h"
 
 uint32_t calib_val;
 
@@ -147,3 +148,20 @@ void AS3935_REG_SetDef(){
 }
 
 
+void TIM7_Start(){
+	//LL_TIM_SetAutoReload(TIM7, time);
+	LL_TIM_SetCounter(TIM7, 0);
+	LL_TIM_ClearFlag_UPDATE(TIM7);
+	LL_TIM_EnableCounter(TIM7);
+}
+void TIM7_Stop(){
+	//LL_TIM_SetAutoReload(TIM7, time);
+	LL_TIM_SetCounter(TIM7, 0);
+	LL_TIM_ClearFlag_UPDATE(TIM7);
+	LL_TIM_DisableCounter(TIM7);
+}
+
+uint32_t TIM7_Read(){
+	return LL_TIM_GetCounter(TIM7);
+
+}
