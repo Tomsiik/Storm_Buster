@@ -18,13 +18,15 @@
 #include"Periph_Init.h"
 #include "stm32l4xx_ll_usart.h"
 #include "stm32l4xx_ll_gpio.h"
-
+#include "stm32l4xx_ll_tim.h"
+#include "Procedures.h"
 
 
 
 __IO uint32_t TimmingDelay;
-uint8_t bufferUSART1[];
+uint8_t bufferUSART1[30];
 uint8_t count;
+uint8_t RXHMIPacket_ready;
 
 void SysTick_Handler(void)
 {	 if(TimmingDelay !=0)
@@ -50,15 +52,35 @@ void USART2_IRQHandler(){
 	}
 }
 
+
+
 void USART1_IRQHandler(){
 	if(LL_USART_IsActiveFlag_RXNE(USART1)){
+		TIM7_Start(50);
 		bufferUSART1[count]=LL_USART_ReceiveData8(USART1);
 		count++;
+		RXHMIPacket_ready=0;
+
+		}
+}
 
 
+void TIM7_IRQHandler(){
+	if(LL_TIM_IsActiveFlag_UPDATE(TIM7)){
+		TIM7_Stop();
+		if (bufferUSART1[count-1]==0xFF && bufferUSART1[count-2]==0xFF && bufferUSART1[count-3]==0xFF){
+				TIM7_Stop();
+				RXHMIPacket_ready=1;
+		}
+		else{
+			USART1_Buffer_Clear();
+			RXHMIPacket_ready=0;
+
+		}
+		LL_TIM_ClearFlag_UPDATE(TIM7);
+		count=0;
 
 	}
-
 }
 
 

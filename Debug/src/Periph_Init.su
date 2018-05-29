@@ -54,6 +54,8 @@ stm32l4xx_ll_i2c.h:407:22:LL_I2C_Enable	16	static
 stm32l4xx_ll_i2c.h:421:22:LL_I2C_Disable	16	static
 stm32l4xx_ll_system.h:788:22:LL_SYSCFG_SetEXTISource	24	static
 stm32l4xx_ll_system.h:1416:22:LL_FLASH_SetLatency	16	static
+stm32l4xx_ll_tim.h:4024:22:LL_TIM_ClearFlag_UPDATE	16	static
+stm32l4xx_ll_tim.h:4383:22:LL_TIM_EnableIT_UPDATE	16	static
 Periph_Init.c:17:6:SystemClock_Config	8	static
 Periph_Init.c:55:6:GPIO_Init	8	static
 Periph_Init.c:146:6:SPI2_Init	48	static
@@ -62,4 +64,4 @@ Periph_Init.c:187:6:USART2_Init	40	static
 Periph_Init.c:205:6:I2C2_Init	40	static
 Periph_Init.c:221:6:ADC_Init	8	static
 Periph_Init.c:267:6:IRQ_Init	24	static
-Periph_Init.c:293:6:TIM7_Init	32	static
+Periph_Init.c:297:6:TIM7_Init	32	static

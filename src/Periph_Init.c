@@ -284,21 +284,26 @@ void IRQ_Init(void){
 
 
 	/*USART2 IRQ*/
-	NVIC_SetPriority(USART2_IRQn,3);
+	NVIC_SetPriority(USART2_IRQn,4);
 	NVIC_EnableIRQ(USART2_IRQn);
 	LL_USART_EnableIT_RXNE(USART2);
+
+	NVIC_SetPriority(TIM7_IRQn,3);
+	NVIC_EnableIRQ(TIM7_IRQn);
+	LL_TIM_EnableIT_UPDATE(TIM7);
 
 }
 
 void TIM7_Init(){
 	LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_TIM7);
 	LL_TIM_InitTypeDef TIM7_Init;
-	TIM7_Init.Autoreload=2000;//0xFFFFFFFFU;
+	TIM7_Init.Autoreload=0xFFFFFFFFU;
 	TIM7_Init.ClockDivision=LL_TIM_CLOCKDIVISION_DIV1;
 	TIM7_Init.CounterMode=LL_TIM_COUNTERDIRECTION_UP;
 	TIM7_Init.Prescaler=31999;
 	TIM7_Init.RepetitionCounter=0;
 	LL_TIM_Init(TIM7,&TIM7_Init);
+	LL_TIM_ClearFlag_UPDATE(TIM7);
 
 }
 

@@ -14,6 +14,7 @@
 #include "stm32l4xx_ll_tim.h"
 
 uint32_t calib_val;
+uint8_t bufferUSART1[30];
 
 uint32_t ADC_CALIB_REF_Read() {
 	return *VREFINT_CAL_ADDR;
@@ -148,9 +149,11 @@ void AS3935_REG_SetDef(){
 }
 
 
-void TIM7_Start(){
+void TIM7_Start(uint32_t auto_reload){
 	//LL_TIM_SetAutoReload(TIM7, time);
+	LL_TIM_DisableCounter(TIM7);
 	LL_TIM_SetCounter(TIM7, 0);
+	LL_TIM_SetAutoReload(TIM7,auto_reload);
 	LL_TIM_ClearFlag_UPDATE(TIM7);
 	LL_TIM_EnableCounter(TIM7);
 }
@@ -164,4 +167,11 @@ void TIM7_Stop(){
 uint32_t TIM7_Read(){
 	return LL_TIM_GetCounter(TIM7);
 
+}
+
+void USART1_Buffer_Clear(){
+	for(uint8_t i=0;i<30;i++){
+		bufferUSART1[i]=0;
+
+	}
 }
