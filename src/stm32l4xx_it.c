@@ -56,10 +56,10 @@ void USART2_IRQHandler(){
 
 void USART1_IRQHandler(){
 	if(LL_USART_IsActiveFlag_RXNE(USART1)){
-		TIM7_Start(50);
+		TIM7_Start(5);
 		bufferUSART1[count]=LL_USART_ReceiveData8(USART1);
 		count++;
-		RXHMIPacket_ready=0;
+		//RXHMIPacket_ready=0;
 
 		}
 }
@@ -69,14 +69,9 @@ void TIM7_IRQHandler(){
 	if(LL_TIM_IsActiveFlag_UPDATE(TIM7)){
 		TIM7_Stop();
 		if (bufferUSART1[count-1]==0xFF && bufferUSART1[count-2]==0xFF && bufferUSART1[count-3]==0xFF){
-				TIM7_Stop();
-				RXHMIPacket_ready=1;
+			RXHMIPacket_ready=1;
 		}
-		else{
-			USART1_Buffer_Clear();
-			RXHMIPacket_ready=0;
-
-		}
+		LL_USART_ReceiveData8(USART1);
 		LL_TIM_ClearFlag_UPDATE(TIM7);
 		count=0;
 

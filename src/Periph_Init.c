@@ -44,7 +44,7 @@ void SystemClock_Config(void) {
 
 	LL_SYSTICK_SetClkSource(LL_SYSTICK_CLKSOURCE_HCLK);
 	SysTick_Config(SystemCoreClock / 100000);
-	NVIC_SetPriority(SysTick_IRQn,0);
+	NVIC_SetPriority(SysTick_IRQn,3);
 	LL_SYSTICK_DisableIT();
 	LL_RCC_SetADCClockSource(LL_RCC_ADC_CLKSOURCE_SYSCLK);
 
@@ -278,7 +278,7 @@ void IRQ_Init(void){
 	NVIC_SetPriority(EXTI9_5_IRQn,1);
 
 	/*USART1 IRQ*/
-	NVIC_SetPriority(USART1_IRQn,2);
+	NVIC_SetPriority(USART1_IRQn,1);
 	LL_USART_EnableIT_RXNE(USART1);
 	NVIC_EnableIRQ(USART1_IRQn);
 
@@ -288,7 +288,7 @@ void IRQ_Init(void){
 	NVIC_EnableIRQ(USART2_IRQn);
 	LL_USART_EnableIT_RXNE(USART2);
 
-	NVIC_SetPriority(TIM7_IRQn,3);
+	NVIC_SetPriority(TIM7_IRQn,2);
 	NVIC_EnableIRQ(TIM7_IRQn);
 	LL_TIM_EnableIT_UPDATE(TIM7);
 

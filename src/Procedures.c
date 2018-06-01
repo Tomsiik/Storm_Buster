@@ -13,6 +13,7 @@
 #include "stm32l4xx_ll_i2c.h"
 #include "stm32l4xx_ll_tim.h"
 
+
 uint32_t calib_val;
 uint8_t bufferUSART1[30];
 
@@ -174,4 +175,11 @@ void USART1_Buffer_Clear(){
 		bufferUSART1[i]=0;
 
 	}
+}
+
+void HMI_Send(char *charr){
+	TL_USART_printf(USART1,charr);
+	TL_USART_putByte(USART1,255);
+	TL_USART_putByte(USART1,255);
+	TL_USART_putByte(USART1,255);
 }

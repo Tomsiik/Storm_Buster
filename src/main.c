@@ -3,6 +3,9 @@
 
 extern uint32_t calib_val;
 extern uint8_t bufferUSART1[30];
+extern uint8_t RXHMIPacket_ready;
+
+
 
 float voltage;
 uint8_t consumption;
@@ -12,7 +15,7 @@ uint8_t *eeprom_data[]={&addr_ofset,&pokusna0,&pokusna1,&pokusna2,&pokusna3,&pok
 uint8_t eeprom_data_r[5];
 uint8_t as3935_reg;
 uint8_t i;
-
+uint8_t a;
 
 
 int main(void) {
@@ -27,31 +30,40 @@ int main(void) {
 	USART1_Init();
 	USART2_Init();
 	I2C2_Init();
+
 	ADC_Init();
+	calib_val = ADC_CALIB_REF_Read();
 	IRQ_Init(); //nutno inicializovat po všech periferiích
 
-	//calib_val = ADC_CALIB_REF_Read();
+
 	//GPIOC->ODR = 0;
 
 	EEPROM_Write(eeprom_data);
 	EEPROM_Read(eeprom_data_r,5);
 	//EEPROM_Read(eeprom_data_r);
 	//AS3935_REG_Write(0x01,0b00110010);
+	ADC_VC_Read(&voltage,&consumption);
 
+	HMI_Send("bkcmd=1");
+	TL_mDelay(100);
 	while (1) {
 
 
-//		TL_USART_printf(USART1,"va0.val=15");
-//		TL_USART_putByte(USART1,255);
-//		TL_USART_putByte(USART1,255);
-//		TL_USART_putByte(USART1,255);
-//		TL_mDelay(100);
-//
-//		TL_USART_printf(USART1,"va0.val=128");
-//		TL_USART_putByte(USART1,255);
-//		TL_USART_putByte(USART1,255);
-//		TL_USART_putByte(USART1,255);
-//		TL_mDelay(100);
+		HMI_Send("config_1_p.reg1.val=15");
+		while(RXHMIPacket_ready==0){}
+		RXHMIPacket_ready=0;
+		TL_mDelay(500);
+		USART1_Buffer_Clear();
+		TL_mDelay(500);
+
+		HMI_Send("config_1_p.reg1.val=120");
+		while(RXHMIPacket_ready==0){}
+		RXHMIPacket_ready=0;
+		TL_mDelay(500);
+		USART1_Buffer_Clear();
+
+		//TL_mDelay(100);
+		TL_mDelay(500);
 	}
 }
 
