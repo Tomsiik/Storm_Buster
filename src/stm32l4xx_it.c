@@ -56,6 +56,7 @@ void USART2_IRQHandler(){
 
 void USART1_IRQHandler(){
 	if(LL_USART_IsActiveFlag_RXNE(USART1)){
+
 		TIM7_Start(5);
 		bufferUSART1[count]=LL_USART_ReceiveData8(USART1);
 		count++;
@@ -74,7 +75,6 @@ void TIM7_IRQHandler(){
 		LL_USART_ReceiveData8(USART1);
 		LL_TIM_ClearFlag_UPDATE(TIM7);
 		count=0;
-
 	}
 }
 

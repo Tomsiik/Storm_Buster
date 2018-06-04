@@ -30,8 +30,16 @@ void EEPROM_Read(uint8_t *data, uint8_t size);
 uint8_t AS3935_REG_Read(uint8_t reg);
 void AS3935_REG_Write(uint8_t reg,uint8_t data);
 void AS3935_REG_SetDef();
-//UART_HMI
 
+//TIM-timeout
+void TIM7_Start(uint32_t auto_reload);
+void TIM7_Stop();
+uint32_t TIM7_Read();
+
+
+//UART_HMI
+void USART1_Buffer_Clear();
+void HMI_Send(char *charr);
 //UART_USB
 
 
