@@ -1,20 +1,20 @@
 #include "main.h"
+#include "Periph_Init.h"
+#include "Procedures.h"
+#include "TomLib_SYS.h"
+#include "TomLib_I2C.h"
+#include "TomLib_SPI.h"
+#include "TomLib_USART.h"
+#include "stm32l433xx.h"
+#include "stm32l4xx.h"
+#include "stm32l4xx_ll_gpio.h"
+#include "stm32l4xx_ll_usart.h"
 
-extern uint32_t calib_val;
-extern uint8_t bufferUSART1[30];
-extern uint8_t RXHMIPacket_ready;
 
-float voltage;
-uint8_t consumption;
-float temp;
-uint8_t addr_ofset = 1, pokusna0 = 100, pokusna1 = 57, pokusna2 = 99, pokusna3 =
-		51, pokusna4 = 154;
-uint8_t *eeprom_data[] = { &addr_ofset, &pokusna0, &pokusna1, &pokusna2,
-		&pokusna3, &pokusna4 };
-uint8_t eeprom_data_r[5];
-uint8_t as3935_reg;
-uint8_t i;
-uint8_t a;
+
+
+
+
 
 int main(void) {
 	SystemClock_Config();
@@ -48,13 +48,23 @@ int main(void) {
 		if (RXHMIPacket_ready) {
 			switch (bufferUSART1[0]) {
 
-			case 0xDE:
+			case 0xA1:
 
-				AS3935_REG_Write(0x00, bufferUSART1[2]);
-				AS3935_REG_Write(0x01, bufferUSART1[3]);
-				AS3935_REG_Write(0x02, bufferUSART1[4]);
-				AS3935_REG_Write(0x03, bufferUSART1[5]);
+				AS3935_REG_Write(0x00, bufferUSART1[1]);
+				AS3935_REG_Write(0x01, bufferUSART1[2]);
+				AS3935_REG_Write(0x02, bufferUSART1[3]);
+				AS3935_REG_Write(0x03, bufferUSART1[4]);
+
+				AS3935_REG_Read(0x00);
+				AS3935_REG_Read(0x01);
+				AS3935_REG_Read(0x02);
+				AS3935_REG_Read(0x03);
+
 				RXHMIPacket_ready = 0;
+				break;
+
+			case 0xA2:
+
 				break;
 
 

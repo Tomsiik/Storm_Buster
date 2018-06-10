@@ -38,7 +38,7 @@ void SysTick_Handler(void)
 
 void EXTI9_5_IRQHandler(void){
 	if(LL_EXTI_IsActiveFlag_0_31(LL_EXTI_LINE_6)){
-		AS3935_REG_Read(0x03);
+		//AS3935_REG_Read(0x03);
 
 		LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_6);
 	}

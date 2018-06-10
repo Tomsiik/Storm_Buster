@@ -8,55 +8,47 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-#include "Periph_Init.h"
-#include "Procedures.h"
-#include "TomLib_SYS.h"
-#include "Periph_Init.h"
-#include "TomLib_I2C.h"
-#include "TomLib_SPI.h"
-#include "TomLib_USART.h"
+#include "stdio.h"
 
-#include "stm32l433xx.h"
-#include "stm32l4xx.h"
-#include "stm32l4xx_ll_gpio.h"
-#include "stm32l4xx_ll_usart.h"
 
-#ifndef NVIC_PRIORITYGROUP_0
-#define NVIC_PRIORITYGROUP_0         ((uint32_t)0x00000007) /*!< 0 bit  for pre-emption priority,
-                                                                 4 bits for subpriority */
-#define NVIC_PRIORITYGROUP_1         ((uint32_t)0x00000006) /*!< 1 bit  for pre-emption priority,
-                                                                 3 bits for subpriority */
-#define NVIC_PRIORITYGROUP_2         ((uint32_t)0x00000005) /*!< 2 bits for pre-emption priority,
-                                                                 2 bits for subpriority */
-#define NVIC_PRIORITYGROUP_3         ((uint32_t)0x00000004) /*!< 3 bits for pre-emption priority,
-                                                                 1 bit  for subpriority */
-#define NVIC_PRIORITYGROUP_4         ((uint32_t)0x00000003) /*!< 4 bits for pre-emption priority,
-                                                                 0 bit  for subpriority */
-#endif
 
-/* ########################## Assert Selection ############################## */
-/**
-  * @brief Uncomment the line below to expanse the "assert_param" macro in the
-  *        HAL drivers code
-  */
-/* #define USE_FULL_ASSERT    1 */
 
-/* USER CODE BEGIN Private defines */
 
-/* USER CODE END Private defines */
+/*Definitions and declarations */
+extern uint32_t calib_val;
+extern uint8_t bufferUSART1[30];
+extern uint8_t RXHMIPacket_ready;
+
+float voltage;
+uint8_t consumption;
+float temp;
+uint8_t addr_ofset = 1, pokusna0 = 100, pokusna1 = 57, pokusna2 = 99, pokusna3 =
+		51, pokusna4 = 154;
+uint8_t *eeprom_data[] = { &addr_ofset, &pokusna0, &pokusna1, &pokusna2,
+		&pokusna3, &pokusna4 };
+uint8_t eeprom_data_r[5];
+uint8_t as3935_reg;
+uint8_t i;
+uint8_t a;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 int main(void);
 void _Error_Handler(char *, int);
 
 #define Error_Handler() _Error_Handler(__FILE__, __LINE__)
 
-/**
-  * @}
-  */
-
-/**
-  * @}
-*/
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
 #endif /* MAIN_H_ */

@@ -1,4 +1,3 @@
-#include "main.h"
 #include "stm32l4xx.h"
 #include "stm32l4xx_ll_gpio.h"
 #include "stm32l4xx_ll_bus.h"
@@ -12,6 +11,8 @@
 #include "stm32l4xx_ll_pwr.h"
 #include "stm32l4xx_ll_system.h"
 #include "stm32l4xx_ll_tim.h"
+#include "Periph_Init.h"
+#include "TomLib_SYS.h"
 
 
 void SystemClock_Config(void) {

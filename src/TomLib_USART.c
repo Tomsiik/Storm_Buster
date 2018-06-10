@@ -7,7 +7,7 @@
 
 
 #include "TomLib_USART.h"
-//#include "string.h"
+#include "string.h"
 #include "stm32l4xx.h"
 #include "stm32l4xx_ll_usart.h"
 

@@ -18,7 +18,7 @@ void USART2_Init(void);
 void I2C2_Init(void);
 void ADC_Init(void);
 void IRQ_Init(void);
-
+void TIM7_Init(void);
 
 /*Pinout definition*/
 
