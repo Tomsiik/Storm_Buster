@@ -54,11 +54,13 @@ int main(void) {
 				AS3935_REG_Write(0x01, bufferUSART1[2]);
 				AS3935_REG_Write(0x02, bufferUSART1[3]);
 				AS3935_REG_Write(0x03, bufferUSART1[4]);
+				AS3935_REG_Write(0x08, bufferUSART1[5]);
 
-				AS3935_REG_Read(0x00);
-				AS3935_REG_Read(0x01);
-				AS3935_REG_Read(0x02);
-				AS3935_REG_Read(0x03);
+				RbufferUSART[0]=AS3935_REG_Read(0x00);
+				RbufferUSART[1]=AS3935_REG_Read(0x01);
+				RbufferUSART[2]=AS3935_REG_Read(0x02);
+				RbufferUSART[3]=AS3935_REG_Read(0x03);
+				RbufferUSART[4]=AS3935_REG_Read(0x08);
 
 				RXHMIPacket_ready = 0;
 				break;
