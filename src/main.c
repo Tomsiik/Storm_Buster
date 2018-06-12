@@ -43,6 +43,7 @@ int main(void) {
 
 	HMI_Send("bkcmd=1");
 	TL_mDelay(100);
+	AS3935_REG_Read(0x03);
 	while (1) {
 
 		if (RXHMIPacket_ready) {
@@ -56,17 +57,47 @@ int main(void) {
 				AS3935_REG_Write(0x03, bufferUSART1[4]);
 				AS3935_REG_Write(0x08, bufferUSART1[5]);
 
-				RbufferUSART[0]=AS3935_REG_Read(0x00);
-				RbufferUSART[1]=AS3935_REG_Read(0x01);
-				RbufferUSART[2]=AS3935_REG_Read(0x02);
-				RbufferUSART[3]=AS3935_REG_Read(0x03);
-				RbufferUSART[4]=AS3935_REG_Read(0x08);
+				Reg_lghtng[0]=AS3935_REG_Read(0x00);
+				Reg_lghtng[1]=AS3935_REG_Read(0x01);
+				Reg_lghtng[2]=AS3935_REG_Read(0x02);
+				Reg_lghtng[3]=AS3935_REG_Read(0x03);
+				Reg_lghtng[4]=AS3935_REG_Read(0x08);
 
 				RXHMIPacket_ready = 0;
+				USART1_Buffer_Clear();
 				break;
 
 			case 0xA2:
 
+
+				Reg_lghtng[0] = AS3935_REG_Read(0x00);
+				Reg_lghtng[1] = AS3935_REG_Read(0x01);
+				Reg_lghtng[2] = AS3935_REG_Read(0x02);
+				Reg_lghtng[3] = AS3935_REG_Read(0x03);
+				Reg_lghtng[4] = AS3935_REG_Read(0x08);
+
+				sprintf(string, "config_0_p.reg0.val=%d", Reg_lghtng[0]);
+				HMI_Send(string);
+				HMI_Send("config_0_p.n1.bco=64520");
+
+				sprintf(string, "config_1_p.reg1.val=%d", Reg_lghtng[1]);
+				HMI_Send(string);
+				HMI_Send("config_1_p.n1.bco=64520");
+
+				sprintf(string, "config_2_p.reg2.val=%d", Reg_lghtng[2]);
+				HMI_Send(string);
+				HMI_Send("config_2_p.n1.bco=64520");
+
+				sprintf(string, "config_3_p.reg3.val=%d", Reg_lghtng[3]);
+				HMI_Send(string);
+				HMI_Send("config_3_p.n1.bco=64520");
+
+				sprintf(string, "config_4_p.reg8.val=%d", Reg_lghtng[4]);
+				HMI_Send(string);
+				HMI_Send("config_4_p.n1.bco=64520");
+
+				RXHMIPacket_ready = 0;
+				USART1_Buffer_Clear();
 				break;
 
 

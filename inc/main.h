@@ -18,7 +18,8 @@
 extern uint32_t calib_val;
 extern uint8_t bufferUSART1[30];
 extern uint8_t RXHMIPacket_ready;
-uint8_t RbufferUSART[30];
+uint8_t Reg_lghtng[30];
+char string[20];
 
 
 float voltage;
