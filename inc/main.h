@@ -36,7 +36,7 @@ uint8_t a;
 
 
 
-
+void StateAutomat();
 
 
 

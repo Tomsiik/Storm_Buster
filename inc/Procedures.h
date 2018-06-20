@@ -10,6 +10,13 @@
 
 #include "stm32l4xx.h"
 
+typedef enum {
+	true = 0x01,
+	false = 0x00
+} result;
+
+
+
 //ADC
 uint32_t ADC_CALIB_REF_Read(void);
 uint32_t ADC_Read(void);
@@ -23,8 +30,8 @@ void Temperature_Read_int(uint16_t *temp);
 void Temperature_Read_float(float *temp);
 
 //EEPROM
-void EEPROM_Write(uint8_t *data[]);
-void EEPROM_Read(uint8_t *data, uint8_t size);
+result EEPROM_Write(uint8_t *data[]);
+result EEPROM_Read(uint8_t *data, uint8_t size);
 
 //LIGHTNING
 uint8_t AS3935_REG_Read(uint8_t reg);

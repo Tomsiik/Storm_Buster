@@ -95,15 +95,23 @@ void Temperature_Read_float(float *temp) {
 
 
 /*EEPROM*/
-void EEPROM_Write(uint8_t *data[]){
+result EEPROM_Write(uint8_t *data[]){
+	static uint8_t i2cResult;
 	LL_GPIO_ResetOutputPin(GPIOB,WP);
-	TL_I2C_SendData(I2C2,EEPROM_Addr,*data,6);
+
+	i2cResult = TL_I2C_SendData(I2C2,EEPROM_Addr,*data,6);
+	if(i2cResult==1){
+		return false;
+	}
+	else{
+		return true;
+	}
 	LL_GPIO_SetOutputPin(GPIOB,WP);
 
 }
 
 
-void EEPROM_Read(uint8_t *data,uint8_t size){
+result EEPROM_Read(uint8_t *data,uint8_t size){
 		LL_GPIO_SetOutputPin(GPIOB,WP);
 		LL_I2C_DisableAutoEndMode(I2C2);
 		LL_I2C_SetTransferRequest(I2C2, LL_I2C_REQUEST_WRITE);
@@ -112,7 +120,12 @@ void EEPROM_Read(uint8_t *data,uint8_t size){
 		TL_I2C_Start(I2C2);
 		TL_I2C_WriteByte(I2C2, 0x01);
 		LL_I2C_ClearFlag_STOP(I2C2);
-		while(LL_I2C_IsActiveFlag_TC(I2C2)==0){}
+		if(LL_I2C_IsActiveFlag_NACK(I2C2)){
+			return false;
+		}
+		else{
+			while(LL_I2C_IsActiveFlag_TC(I2C2)==0){}
+		}
 		LL_I2C_DisableAutoEndMode(I2C2);
 		LL_I2C_SetTransferRequest(I2C2, LL_I2C_REQUEST_READ);
 		LL_I2C_SetTransferSize(I2C2,size);
@@ -122,6 +135,7 @@ void EEPROM_Read(uint8_t *data,uint8_t size){
 		}
 		TL_I2C_Stop(I2C2);
 		LL_I2C_ClearFlag_STOP(I2C2);
+		return true;
 		//while(LL_I2C_IsActiveFlag_TC(I2C2)==1){}
 }
 

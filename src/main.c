@@ -45,80 +45,73 @@ int main(void) {
 	TL_mDelay(100);
 	AS3935_REG_Read(0x03);
 	while (1) {
-
+		ADC_VC_Read(&voltage, &consumption);
 		if (RXHMIPacket_ready) {
-			switch (bufferUSART1[0]) {
-
-			case 0xA1:
-
-				AS3935_REG_Write(0x00, bufferUSART1[1]);
-				AS3935_REG_Write(0x01, bufferUSART1[2]);
-				AS3935_REG_Write(0x02, bufferUSART1[3]);
-				AS3935_REG_Write(0x03, bufferUSART1[4]);
-				AS3935_REG_Write(0x08, bufferUSART1[5]);
-
-				Reg_lghtng[0]=AS3935_REG_Read(0x00);
-				Reg_lghtng[1]=AS3935_REG_Read(0x01);
-				Reg_lghtng[2]=AS3935_REG_Read(0x02);
-				Reg_lghtng[3]=AS3935_REG_Read(0x03);
-				Reg_lghtng[4]=AS3935_REG_Read(0x08);
-
-				RXHMIPacket_ready = 0;
-				USART1_Buffer_Clear();
-				break;
-
-			case 0xA2:
-
-
-				Reg_lghtng[0] = AS3935_REG_Read(0x00);
-				Reg_lghtng[1] = AS3935_REG_Read(0x01);
-				Reg_lghtng[2] = AS3935_REG_Read(0x02);
-				Reg_lghtng[3] = AS3935_REG_Read(0x03);
-				Reg_lghtng[4] = AS3935_REG_Read(0x08);
-
-				sprintf(string, "config_0_p.reg0.val=%d", Reg_lghtng[0]);
-				HMI_Send(string);
-				HMI_Send("config_0_p.n1.bco=64520");
-
-				sprintf(string, "config_1_p.reg1.val=%d", Reg_lghtng[1]);
-				HMI_Send(string);
-				HMI_Send("config_1_p.n1.bco=64520");
-
-				sprintf(string, "config_2_p.reg2.val=%d", Reg_lghtng[2]);
-				HMI_Send(string);
-				HMI_Send("config_2_p.n1.bco=64520");
-
-				sprintf(string, "config_3_p.reg3.val=%d", Reg_lghtng[3]);
-				HMI_Send(string);
-				HMI_Send("config_3_p.n1.bco=64520");
-
-				sprintf(string, "config_4_p.reg8.val=%d", Reg_lghtng[4]);
-				HMI_Send(string);
-				HMI_Send("config_4_p.n1.bco=64520");
-
-				RXHMIPacket_ready = 0;
-				USART1_Buffer_Clear();
-				break;
-
-
-			}
-
-//		HMI_Send("config_1_p.reg1.val=15");
-//		while(RXHMIPacket_ready==0){}
-//		RXHMIPacket_ready=0;
-//		TL_mDelay(500);
-//		USART1_Buffer_Clear();
-//		TL_mDelay(500);
-//
-//		HMI_Send("config_1_p.reg1.val=120");
-//		while(RXHMIPacket_ready==0){}
-//		RXHMIPacket_ready=0;
-//		TL_mDelay(500);
-//		USART1_Buffer_Clear();
-
+			StateAutomat();
 			//TL_mDelay(100);
 			TL_mDelay(500);
 		}
 	}
 }
 
+
+
+
+
+
+void StateAutomat() {
+	switch (bufferUSART1[0]) {
+
+	case 0xA1:
+
+		AS3935_REG_Write(0x00, bufferUSART1[1]);
+		AS3935_REG_Write(0x01, bufferUSART1[2]);
+		AS3935_REG_Write(0x02, bufferUSART1[3]);
+		AS3935_REG_Write(0x03, bufferUSART1[4]);
+		AS3935_REG_Write(0x08, bufferUSART1[5]);
+
+		Reg_lghtng[0] = AS3935_REG_Read(0x00);
+		Reg_lghtng[1] = AS3935_REG_Read(0x01);
+		Reg_lghtng[2] = AS3935_REG_Read(0x02);
+		Reg_lghtng[3] = AS3935_REG_Read(0x03);
+		Reg_lghtng[4] = AS3935_REG_Read(0x08);
+
+		RXHMIPacket_ready = 0;
+		USART1_Buffer_Clear();
+		break;
+
+	case 0xA2:
+
+		Reg_lghtng[0] = AS3935_REG_Read(0x00);
+		Reg_lghtng[1] = AS3935_REG_Read(0x01);
+		Reg_lghtng[2] = AS3935_REG_Read(0x02);
+		Reg_lghtng[3] = AS3935_REG_Read(0x03);
+		Reg_lghtng[4] = AS3935_REG_Read(0x08);
+
+		sprintf(string, "config_0_p.reg0.val=%d", Reg_lghtng[0]);
+		HMI_Send(string);
+		HMI_Send("config_0_p.n1.bco=64520");
+
+		sprintf(string, "config_1_p.reg1.val=%d", Reg_lghtng[1]);
+		HMI_Send(string);
+		HMI_Send("config_1_p.n1.bco=64520");
+
+		sprintf(string, "config_2_p.reg2.val=%d", Reg_lghtng[2]);
+		HMI_Send(string);
+		HMI_Send("config_2_p.n1.bco=64520");
+
+		sprintf(string, "config_3_p.reg3.val=%d", Reg_lghtng[3]);
+		HMI_Send(string);
+		HMI_Send("config_3_p.n1.bco=64520");
+
+		sprintf(string, "config_4_p.reg8.val=%d", Reg_lghtng[4]);
+		HMI_Send(string);
+		HMI_Send("config_4_p.n1.bco=64520");
+
+		RXHMIPacket_ready = 0;
+		USART1_Buffer_Clear();
+		break;
+
+	}
+
+}
