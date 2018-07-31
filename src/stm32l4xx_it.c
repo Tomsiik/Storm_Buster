@@ -27,6 +27,10 @@ __IO uint32_t TimmingDelay;
 uint8_t bufferUSART1[30];
 uint8_t count;
 uint8_t RXHMIPacket_ready;
+uint8_t irqReg;
+uint16_t counterLight;
+uint16_t counterNoise;
+
 
 void SysTick_Handler(void)
 {	 if(TimmingDelay !=0)
@@ -38,8 +42,15 @@ void SysTick_Handler(void)
 
 void EXTI9_5_IRQHandler(void){
 	if(LL_EXTI_IsActiveFlag_0_31(LL_EXTI_LINE_6)){
-		AS3935_REG_Read(0x03);
-		LL_GPIO_TogglePin(GPIOC,ULED1);
+		irqReg=AS3935_REG_Read(0x03);
+		if(irqReg&0x80==1){
+			counterLight++;					//light
+		}
+		if(irqReg&0x01==1){					//noise
+			counterNoise++;
+			LL_GPIO_TogglePin(GPIOC,ULED1);
+		}
+
 		LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_6);
 	}
 }

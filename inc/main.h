@@ -34,6 +34,11 @@ uint8_t as3935_reg;
 uint8_t i;
 uint8_t a;
 
+extern uint16_t counterLight;
+extern uint16_t counterNoise;
+
+uint16_t pre_counterLight;
+uint16_t pre_counterNoise;
 
 
 void StateAutomat();

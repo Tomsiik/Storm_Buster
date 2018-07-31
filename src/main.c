@@ -13,9 +13,6 @@
 
 
 
-
-
-
 int main(void) {
 	SystemClock_Config();
 	TIM6_Init();
@@ -45,9 +42,14 @@ int main(void) {
 	TL_mDelay(100);
 	AS3935_REG_Read(0x03);
 	while (1) {
+		Temperature_Read_float(&temp);
 		ADC_VC_Read(&voltage, &consumption);
+		Viewer();
+
+
 		if (RXHMIPacket_ready) {
 			StateAutomat();
+
 			//TL_mDelay(100);
 			TL_mDelay(500);
 		}
@@ -112,6 +114,20 @@ void StateAutomat() {
 		USART1_Buffer_Clear();
 		break;
 
+	}
+
+}
+
+void Viewer() {
+	if (pre_counterLight != counterLight) {
+		sprintf(string, "viewer_p.n0.val=%d", counterLight);
+		HMI_Send(string);
+		pre_counterLight = counterLight;
+	}
+	if (pre_counterNoise != counterNoise) {
+		sprintf(string, "viewer_p.n1.val=%d", counterNoise);
+		HMI_Send(string);
+		pre_counterNoise = counterNoise;
 	}
 
 }
