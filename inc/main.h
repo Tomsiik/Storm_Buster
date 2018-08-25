@@ -42,7 +42,7 @@ uint16_t pre_counterNoise;
 
 
 void StateAutomat();
-
+void Viewer();
 
 
 

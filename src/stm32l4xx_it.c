@@ -40,15 +40,18 @@ void SysTick_Handler(void)
 	}
 }
 
+/*handler pro IRQ z AS3935*/
 void EXTI9_5_IRQHandler(void){
 	if(LL_EXTI_IsActiveFlag_0_31(LL_EXTI_LINE_6)){
 		irqReg=AS3935_REG_Read(0x03);
-		if(irqReg&0x80==1){
-			counterLight++;					//light
-		}
-		if(irqReg&0x01==1){					//noise
-			counterNoise++;
+		if((irqReg&0x08 )== 1){
+			counterLight++;						//light
 			LL_GPIO_TogglePin(GPIOC,ULED1);
+		}
+		if((irqReg&0x01) == 1){					//noise
+			counterNoise++;
+
+
 		}
 
 		LL_EXTI_ClearFlag_0_31(LL_EXTI_LINE_6);
